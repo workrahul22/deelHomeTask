@@ -72,8 +72,8 @@ app.get('/admin/best-profession', getProfile, async(req: Request, res: Response)
 })
 
 app.get('/admin/best-clients', async(req: Request, res: Response) => {
-    const start = new Date(req.query['start'] as any);
-    const end = new Date(req.query['end'] as any);
+    const start = new Date(req.query['start'] as any).toISOString();
+    const end = new Date(req.query['end'] as any).toISOString();
     const limit = req.query['limit'] || 2;
     const bestClients = await getBestClients(+limit, start, end);
     if (bestClients.length === 0) {

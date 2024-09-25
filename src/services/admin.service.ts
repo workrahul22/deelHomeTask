@@ -34,7 +34,7 @@ async function getBestProfession(startDate: string, endDate: string) {
       return result;
 }
 
-async function getBestClients(limit: number, startDate: Date, endDate: Date): Promise<any> {
+async function getBestClients(limit: number, startDate: string, endDate: string): Promise<any> {
     const result = await Job.findAll({
         attributes: [
           [sequelize.col('Contract.Client.id'), 'ClientId'],
