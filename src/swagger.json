@@ -1,0 +1,267 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Deel Assignment",
+    "version": "Version 1"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "host": "localhost:3001",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/contracts/{id}": {
+      "get": {
+        "summary": "GET /contracts/:id",
+        "operationId": "GetContractById",
+        "tags": [
+          "Contract"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "profile_id",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Contract not found"
+          }
+        }
+      }
+    },
+    "/contracts": {
+      "get": {
+        "summary": "GET /contracts",
+        "operationId": "GetContracts",
+        "tags": [
+          "Contract"
+        ],
+        "parameters": [
+          {
+            "name": "profile_id",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Contracts not found"
+          }
+        }
+      }
+    },
+    "/jobs/unpaid": {
+      "get": {
+        "summary": "GET /jobs/unpaid",
+        "operationId": "GetUnPaidJobs",
+        "tags": [
+          "Jobs"
+        ],
+        "parameters": [
+          {
+            "name": "profile_id",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "No unpaid jobs found"
+          }
+        }
+      }
+    },
+    "/jobs/{job_id}/pay": {
+      "post": {
+        "summary": "POST /jobs/:job_id/pay",
+        "operationId": "Pay",
+        "tags": [
+          "Jobs"
+        ],
+        "parameters": [
+          {
+            "name": "profile_id",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "job_id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment successful"
+          },
+          "400": {
+            "description": "Insufficient balance or other error"
+          }
+        }
+      }
+    },
+    "/balances/deposit/{userId}": {
+      "post": {
+        "summary": "POST /balances/deposit/:userId",
+        "operationId": "Deposit",
+        "tags": [
+          "Balances"
+        ],
+        "parameters": [
+          {
+            "name": "profile_id",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "depositAmount": {
+                  "type": "number",
+                  "example": 100
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deposit successful"
+          },
+          "400": {
+            "description": "Deposit exceeds the allowed limit"
+          }
+        }
+      }
+    },
+    "/admin/best-profession": {
+      "get": {
+        "summary": "GET /admin/best-profession",
+        "operationId": "GetBestProfession",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "profile_id",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid date range"
+          }
+        }
+      }
+    },
+    "/admin/best-clients": {
+      "get": {
+        "summary": "GET /admin/best-clients",
+        "operationId": "GetBestClients",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "default": 2
+          },
+          {
+            "name": "profile_id",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Invalid date range or limit"
+          }
+        }
+      }
+    }
+  }
+}
